@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Economia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    
+<h2 class="text-2xl font-bold mb-4 text-center">Renova Intelligence</h2>
+
+
+<h3 class="text-2xl font-bold mb-4 text-center">PROGRAMA DE PONTUAÇÃO RENOVA</h3>
+<p class="text-center mb-4">No Programa de Pontuação da Renova, a cada mes que voce economizar energia elétrica, 
+    voce adquire pontos, que ao completar o total de 12 pontos, serão revertidos em desconto de 10% em sua próxima fatura.
+    A regra é simples, economizou no mes vigente ganha 3 pontos e ao completar 12 pontos, um desconto de 10% na fatura seguinte.
+    Essa é uma iniciativa da Renova em Parceria com Empresas Smarts Grids que assim como a Renova, se preocupam em incentivar cada vez mais o uso, 
+    de energia Renovável/Sustentável.</p>
+    <div class="container">
+        <h1>Calculadora de Economia</h1>
+        <p>Informe os valores gastos nos dois meses para calcular sua economia.</p>
+        <form id="economy-form" onsubmit="calculateEconomy(event)">
+            <label for="month1">Gastos do Mês Anterior:</label>
+            <input type="number" id="month1" placeholder="Exemplo: 1000.50" step="any" required>
+
+            <label for="month2">Gastos do Mês Atual:</label>
+            <input type="number" id="month2" placeholder="Exemplo: 800.75" step="any" required>
+
+            <button type="submit">Calcular</button>
+        </form>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateEconomy(event) {
+            event.preventDefault();
+
+            
+            const month1 = parseFloat(document.getElementById('month1').value);
+            const month2 = parseFloat(document.getElementById('month2').value);
+
+            
+            if (isNaN(month1) || isNaN(month2) || month1 <= 0 || month2 <= 0) {
+                document.getElementById('result').textContent = "Por favor, insira valores válidos!";
+                return;
+            }
+
+            
+            const difference = month1 - month2;
+            const percentage = (difference / month1) * 100;
+
+            
+            if (difference > 0) {
+                document.getElementById('result').textContent = 
+                    `Parabéns! Você economizou ${percentage.toFixed(2)}% em relação ao mês anterior e ganha 3 pontos`;
+            } else if (difference < 0) {
+                document.getElementById('result').textContent = 
+                    `Que pena!Você gastou ${Math.abs(percentage).toFixed(2)}% a mais em relação ao mês anterior e não ganha pontos`;
+            } else {
+                document.getElementById('result').textContent = 
+                    "Você gastou exatamente o mesmo que no mês anterior.";
+            }
+        }
+    </script>
+</body>
+</html>
